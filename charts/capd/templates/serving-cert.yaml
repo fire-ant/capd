@@ -1,0 +1,18 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "capd.fullname" . }}-serving-cert
+  labels:
+  {{- include "capd.labels" . | nindent 4 }}
+spec:
+  dnsNames:
+  - '{{ include "capd.fullname" . }}-webhook-service.{{ .Release.Namespace }}.svc'
+  - '{{ include "capd.fullname" . }}-webhook-service.{{ .Release.Namespace }}.svc.{{
+    .Values.kubernetesClusterDomain }}'
+  issuerRef:
+    kind: Issuer
+    name: '{{ include "capd.fullname" . }}-selfsigned-issuer'
+  secretName: capd-webhook-service-cert
+  subject:
+    organizations:
+    - k8s-sig-cluster-lifecycle
