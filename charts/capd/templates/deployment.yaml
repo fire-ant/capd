@@ -32,7 +32,7 @@ spec:
       - args:
         - --leader-elect
         - --metrics-bind-addr=localhost:8080
-        - --feature-gates=MachinePool={{- default false .Values.providerArgs.machinePool }}ClusterTopology={{- default false .Values.providerArgs.clusterTopology }}
+        - --feature-gates=MachinePool={{- default false .Values.providerArgs.machinePool }},ClusterTopology={{- default false .Values.providerArgs.clusterTopology }}
         env:
         - name: POD_NAMESPACE
           valueFrom:
